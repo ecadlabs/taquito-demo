@@ -1,0 +1,17 @@
+<nb-layout>
+  <nb-layout-header>
+    <div class="header">
+      <div class="left-container">
+        <a class="logo link" routerLink="/"><img src="assets/taquito-logo.png" /> Demo</a>
+        <tz-network-select></tz-network-select>
+      </div>
+      <a class="link" href="https://github.com/ecadlabs/taquito">
+        <nb-icon icon="github"></nb-icon> GitHub
+      </a>
+    </div>
+  </nb-layout-header>
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+  <nb-layout-footer></nb-layout-footer>
+</nb-layout>

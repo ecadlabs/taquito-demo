@@ -1,0 +1,22 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.column:first-child {
+  font-weight: bold;
+  min-width: 100px;
+}
+
+.progress-bar {
+  width: 105%;
+  margin: -15px -40px 0 -40px;
+}
+
+input {
+  min-width: 100%;
+  margin: 10px 0;
+}

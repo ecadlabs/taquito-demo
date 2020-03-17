@@ -1,0 +1,60 @@
+<nb-card>
+  <nb-card-header>
+    Select wallet
+  </nb-card-header>
+  <nb-card-body>
+    <tz-signer-select></tz-signer-select>
+  </nb-card-body>
+</nb-card>
+<nb-card>
+  <nb-card-header>
+    Transfer tokens
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="transferForm" (ngSubmit)="onTransfer()">
+      <label for="amount">Amount (mutez)</label>
+      <input nbInput id="amount" class="input" formControlName="amount" />
+      <br>
+      <label for="destination">Destination</label>
+      <input nbInput id="destination" class="input" formControlName="to" />
+      <br>
+      <button nbButton [disabled]="!transferForm.valid">
+        Deploy
+      </button>
+    </form>
+  </nb-card-body>
+</nb-card>
+<br>
+<nb-card *ngIf='operation$ | async as op'>
+  <nb-card-header>
+    Operation: {{op.opHash}}
+  </nb-card-header>
+  <nb-card-body>
+    <ng-container *ngIf='confirmation$ | async as conf'>
+      <mat-progress-bar class='progress-bar' *ngIf='conf.currentConfirmation !== conf.expectedConfirmation'
+        mode="indeterminate">
+      </mat-progress-bar>
+      <br>
+      <strong>{{confirmationState$ | async}} ({{conf.currentConfirmation}} / {{conf.expectedConfirmation}})
+        ({{(isInCurrentBranch$ | async) ? 'On main branch' : 'On uncle branch'}})</strong>
+    </ng-container>
+    <br>
+    <br>
+    <ng-container *ngIf='receipt$ | async as receipt'>
+      <div>
+        <div class="row">
+          <span class="column">Fees</span>
+          <span class="column">{{ receipt.fee }} mutez</span>
+        </div>
+        <div class="row">
+          <span class="column">Gas consumed</span>
+          <span class="column">{{ receipt.consumedGas }}</span>
+        </div>
+        <div class="row">
+          <span class="column">Storage burn</span>
+          <span class="column">{{ receipt.storageBurn }} mutez</span>
+        </div>
+      </div>
+    </ng-container>
+  </nb-card-body>
+</nb-card>

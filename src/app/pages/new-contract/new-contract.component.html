@@ -1,0 +1,68 @@
+<nb-card
+  [nbSpinner]="deploying$ | async"
+  nbSpinnerStatus="info"
+  nbSpinnerSize="giant"
+  nbSpinnerMessage="Deploying..."
+>
+  <nb-card-header>
+    New Contract
+    <a routerLink="/"
+      ><nb-icon nbTooltip="Close" nbTooltipPlacement="bottom" icon="close-outline"></nb-icon
+    ></a>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-alert
+      *ngIf="error$ | async as error"
+      status="warning"
+      closable
+      (close)="error$.next(null)"
+      >{{ error }}</nb-alert
+    >
+    <form [formGroup]="newContract" (ngSubmit)="onDeploy()">
+      <div id="code">
+        <label>Code</label>
+        <ace-editor
+          class="bigger ace input"
+          [class.disabled]="deploying$ | async"
+          mode="json"
+          theme="eclipse"
+          [options]="aceOptions"
+          formControlName="code"
+        ></ace-editor>
+
+        <label>Inital Value</label>
+        <ace-editor
+          class="ace input"
+          [class.disabled]="deploying$ | async"
+          mode="json"
+          theme="eclipse"
+          [options]="aceOptions"
+          formControlName="init"
+        ></ace-editor>
+      </div>
+      <div id="options">
+        <label for="balance">Balance</label>
+        <input nbInput id="balance" class="input" formControlName="balance" />
+
+        <label for="fee">Fee</label>
+        <input nbInput id="fee" class="input" formControlName="fee" />
+
+        <label for="gas-limit">Gas Limit</label>
+        <input nbInput id="gas-limit" class="input" formControlName="gasLimit" />
+
+        <label for="storage-limit">Storage Limit</label>
+        <input nbInput id="storage-limit" class="input" formControlName="storageLimit" />
+
+        <label for="delegate">Delegate</label>
+        <input id="delegate" class="input" nbInput formControlName="delegate" />
+
+        <label>Signer</label>
+        <tz-signer-select class="input" (error)="displayError($event)"></tz-signer-select>
+
+        <button nbButton [disabled]="!newContract.valid">
+          Deploy
+        </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

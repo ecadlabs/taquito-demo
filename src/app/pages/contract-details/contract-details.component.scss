@@ -1,0 +1,36 @@
+nb-card {
+  height: 100%;
+
+  nb-card-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  nb-card-body {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+nb-tabset {
+  margin-top: 16px;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.column:first-child {
+  font-weight: bold;
+  min-width: 100px;
+}

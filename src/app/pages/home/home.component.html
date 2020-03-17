@@ -1,0 +1,19 @@
+<nb-card>
+  <nb-card-body>
+    <button nbButton size="large" class="btn-link" (click)="onTransfer()">
+      Transfer Tokens
+    </button>
+    <br>
+    <button nbButton size="large" class="btn-link" (click)="onNewContract()"
+      [disabled]="disableNewContractButton$ | async">
+      Create New Contract
+    </button>
+    <div class="divider"></div>
+    <h2>Explore Smart Contract</h2>
+    <tz-search-form (search)="onSearch($event)"></tz-search-form>
+
+    <button nbButton size="large" (click)="onPickRandom()">
+      Pick Random Contract
+    </button>
+  </nb-card-body>
+</nb-card>

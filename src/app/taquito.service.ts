@@ -36,7 +36,7 @@ export class TaquitoService {
   }
 
   public async selectBeaconWallet() {
-    const wallet = new BeaconWallet('test')
+    const wallet = new BeaconWallet({ name: 'test' })
     await wallet.requestPermissions()
     this.taquito.setProvider({ rpc: this.taquito.rpc, wallet });
   }

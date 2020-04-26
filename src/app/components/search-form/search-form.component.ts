@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Network } from 'src/app/models/network.model';
+import { Network, NetworkType } from 'src/app/models/network.model';
 
 @Component({
   selector: 'tz-search-form',
@@ -11,7 +11,7 @@ export class SearchFormComponent implements OnInit {
   public Network = Network;
 
   @Input()
-  public network = Network.Alphanet;
+  public network = NetworkType.CARTHAGENET;
 
   @Input()
   public contract = '';

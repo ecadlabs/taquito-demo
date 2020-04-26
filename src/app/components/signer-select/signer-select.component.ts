@@ -17,7 +17,7 @@ export class SignerSelectComponent implements OnInit {
   @Output()
   public error: EventEmitter<any> = new EventEmitter();
 
-  constructor(private taquito: TaquitoService) { }
+  constructor(private taquito: TaquitoService) {}
 
   ngOnInit() {
     this.selectTezBridgeSigner();
@@ -26,18 +26,18 @@ export class SignerSelectComponent implements OnInit {
   onReadFile(file) {
     const fileReader = new FileReader();
 
-    fileReader.onload = _ => {
+    fileReader.onload = (_) => {
       this.importing$.next(true);
 
       const key = JSON.parse(fileReader.result.toString());
 
       this.taquito
         .importFaucetKey(key)
-        .then(_ => {
+        .then((_) => {
           this.importing$.next(false);
           this.signer = Signer.Faucet;
         })
-        .catch(error => {
+        .catch((error) => {
           this.importing$.next(false);
 
           this.error.emit(
@@ -48,7 +48,7 @@ export class SignerSelectComponent implements OnInit {
         });
     };
 
-    fileReader.onerror = _ => {
+    fileReader.onerror = (_) => {
       fileReader.abort();
       this.error.emit(fileReader.error.message);
     };

@@ -19,19 +19,22 @@ export class NetworkSelectComponent implements OnInit, OnDestroy {
 
   private subscriptions = new Subscription();
 
-  constructor(private networkSelect: NetworkSelectService, private taquito: TaquitoService) {}
+  constructor(
+    private networkSelect: NetworkSelectService,
+    private taquito: TaquitoService
+  ) {}
 
   ngOnInit() {
     // Set network from user input
     this.subscriptions.add(
-      this.network.valueChanges.subscribe(network => {
+      this.network.valueChanges.subscribe((network) => {
         this.taquito.setNetwork(network);
       })
     );
 
     // Update selection from programmatic input
     this.subscriptions.add(
-      this.networkSelect.selectedNetwork$.subscribe(network => {
+      this.networkSelect.selectedNetwork$.subscribe((network) => {
         this.network.patchValue(network, { emitEvent: false });
       })
     );

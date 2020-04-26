@@ -4,6 +4,7 @@ module.exports = {
     crypto: true,
     os: true,
     stream: true,
-    path: true
-  }
+    path: true,
+    fs: "empty",
+  },
 };

@@ -1,8 +1,10 @@
-<form [formGroup]="findContract" (ngSubmit)="search.emit(this.findContract.value)">
+<form
+  [formGroup]="findContract"
+  (ngSubmit)="search.emit(this.findContract.value)"
+>
   <!-- <nb-select formControlName="network" placeholder="Select network">
-    <nb-option value="{{ Network.Alphanet }}">Alphanet</nb-option>
-    <nb-option value="{{ Network.Mainnet }}">Mainnet</nb-option>
-    <nb-option value="{{ Network.Babylonnet }}">Babylonnet</nb-option>
+    <nb-option value="{{ NetworkType.Mainnet }}">Mainnet</nb-option>
+    <nb-option value="{{ NetworkType.Carthagenet }}">Carthagenet</nb-option>
   </nb-select> -->
   <input
     nbInput

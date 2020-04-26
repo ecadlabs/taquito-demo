@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { NetworkSelectService } from 'src/app/components/network-select/network-select.service';
-import { Network } from 'src/app/models/network.model';
+import { NetworkType } from 'src/app/models/network.model';
 
 @Component({
   selector: 'tz-home',
@@ -11,30 +11,32 @@ import { Network } from 'src/app/models/network.model';
 })
 export class HomeComponent implements OnInit {
   private contracts = {
-    [Network.Alphanet]: [
-      '/alphanet/KT1WhouvVKZFH94VXj9pa8v4szvfrBwXoBUj',
-      '/alphanet/KT1FU74GimCeEVRAEZGURb6TWU8jK1N6zFJy',
+    [NetworkType.CARTHAGENET]: [
+      // TODO: Replace these examples
+      '/carthagenet/KT1Ajb75sjgyntGu6SAsEQGggXF1TUJMeMFK',
+      '/carthagenet/KT1CsaxmFiaBRXHXcRmzKvY8cbQeDyMU6JSU',
     ],
-    [Network.Babylonnet]: [
-      '/babylonnet/KT1X4QG7UErqXL2BEW5HSnBF4ZFs1nmsiDR8',
-      '/babylonnet/KT1PFP1aviGALwHT9GbSHywv3rYUW1uNexdM',
-    ],
-    [Network.Mainnet]: [
+    [NetworkType.MAINNET]: [
       '/mainnet/KT1GgUJwMQoFayRYNwamRAYCvHBLzgorLoGo',
       '/mainnet/KT1Q1kfbvzteafLvnGz92DGvkdypXfTGfEA3',
     ],
   };
 
   public disableNewContractButton$ = this.networkSelect.selectedNetwork$.pipe(
-    map(network => network !== Network.Babylonnet)
+    map((network) => network !== NetworkType.CARTHAGENET)
   );
 
   private network;
 
-  constructor(private networkSelect: NetworkSelectService, private router: Router) { }
+  constructor(
+    private networkSelect: NetworkSelectService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.networkSelect.selectedNetwork$.subscribe(network => (this.network = network));
+    this.networkSelect.selectedNetwork$.subscribe(
+      (network) => (this.network = network)
+    );
   }
 
   onNewContract() {

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Tezos, TezosToolkit, Wallet, LegacyWalletProvider } from '@taquito/taquito';
-import { OriginateParams, TransferParams } from '@taquito/taquito/dist/types/operations/types';
+import { Tezos, TezosToolkit, LegacyWalletProvider } from '@taquito/taquito';
+import {
+  OriginateParams,
+  TransferParams,
+} from '@taquito/taquito/dist/types/operations/types';
 
 import { NetworkSelectService } from './components/network-select/network-select.service';
-import { Network } from './models/network.model';
-import { TezBridgeWallet } from '@taquito/tezbridge-wallet'
+import { Network, NetworkType } from './models/network.model';
+import { TezBridgeWallet } from '@taquito/tezbridge-wallet';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 
 @Injectable({
@@ -13,9 +16,9 @@ import { BeaconWallet } from '@taquito/beacon-wallet';
 export class TaquitoService {
   private taquito: TezosToolkit = Tezos;
 
-  constructor(private networkSelect: NetworkSelectService) { }
+  constructor(private networkSelect: NetworkSelectService) {}
 
-  public setNetwork(network: Network) {
+  public setNetwork(network: NetworkType) {
     this.networkSelect.select(network);
     this.taquito.setProvider({ rpc: Network.getUrl(network) });
   }
@@ -28,17 +31,28 @@ export class TaquitoService {
 
     await this.taquito.importKey(email, password, mnemonic, secret);
     // Reset the default wallet
-    this.taquito.setProvider({ wallet: this.taquito.getFactory(LegacyWalletProvider)() })
+    this.taquito.setProvider({
+      wallet: this.taquito.getFactory(LegacyWalletProvider)(),
+    });
   }
 
   public selectTezBridgeSigner() {
-    this.taquito.setProvider({ rpc: this.taquito.rpc, wallet: new TezBridgeWallet() });
+    this.taquito.setProvider({
+      wallet: new TezBridgeWallet(),
+    });
   }
 
   public async selectBeaconWallet() {
-    const wallet = new BeaconWallet({ name: 'test' })
-    await wallet.requestPermissions()
-    this.taquito.setProvider({ rpc: this.taquito.rpc, wallet });
+    const wallet = new BeaconWallet({
+      name: 'test',
+    });
+    await wallet.client.init();
+    await wallet.client.removeAllPeers();
+    const network = this.networkSelect.selectedNetwork$.getValue();
+    await wallet.requestPermissions({
+      network: Network.getNetwork(network),
+    });
+    this.taquito.setProvider({ wallet });
   }
 
   public originate(contract: OriginateParams) {
@@ -46,7 +60,6 @@ export class TaquitoService {
   }
 
   public transfer(params: TransferParams) {
-    console.log(params)
     return this.taquito.wallet.transfer(params).send();
   }
 

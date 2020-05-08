@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Network } from './models/network.model';
+import { NetworkType } from './models/network.model';
 import { TaquitoService } from './taquito.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { TaquitoService } from './taquito.service';
 export class AppComponent implements OnInit {
   title = 'Taquito Demo';
 
-  public network = Network.Babylonnet;
+  public network = NetworkType.CARTHAGENET;
 
   constructor(private taquito: TaquitoService) {}
 

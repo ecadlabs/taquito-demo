@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Contract, ContractAbstraction } from '@taquito/taquito/dist/types/contract/contract';
+import {
+  Contract,
+  ContractAbstraction,
+} from '@taquito/taquito/dist/types/contract/contract';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { NetworkSelectService } from 'src/app/components/network-select/network-select.service';
-import { Network } from 'src/app/models/network.model';
+import { NetworkType } from 'src/app/models/network.model';
 
 import { TaquitoService } from '../../taquito.service';
 
@@ -45,8 +48,8 @@ code {
   public error$ = new Subject();
   public deploying$ = new BehaviorSubject<boolean>(false);
 
-  private defaultSupportedNetwork = Network.Babylonnet;
-  private unsupportedNetworks = [Network.Alphanet, Network.Mainnet];
+  private defaultSupportedNetwork = NetworkType.CARTHAGENET;
+  private unsupportedNetworks = [NetworkType.MAINNET];
   private selectedNetwork;
 
   private subscriptions = new Subscription();
@@ -56,13 +59,13 @@ code {
     private taquito: TaquitoService,
     private fb: FormBuilder,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.networkSelect.disable(this.unsupportedNetworks, true);
 
     this.subscriptions.add(
-      this.networkSelect.selectedNetwork$.subscribe(selection => {
+      this.networkSelect.selectedNetwork$.subscribe((selection) => {
         this.selectedNetwork = selection;
 
         if (this.unsupportedNetworks.includes(selection)) {
@@ -72,7 +75,7 @@ code {
     );
 
     this.subscriptions.add(
-      this.deploying$.subscribe(deploying => {
+      this.deploying$.subscribe((deploying) => {
         deploying ? this.newContract.disable() : this.newContract.enable();
       })
     );
@@ -89,7 +92,7 @@ code {
 
     this.router
       .navigate([this.selectedNetwork, contract.address])
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 
   displayError(error) {
@@ -97,7 +100,9 @@ code {
 
     this.deploying$.next(false);
     this.error$.next(
-      error.body && error.body.length !== 0 ? error.body : 'Unable to fulfill the request.'
+      error.body && error.body.length !== 0
+        ? error.body
+        : 'Unable to fulfill the request.'
     );
   }
 
@@ -106,8 +111,8 @@ code {
 
     this.taquito
       .originate(this.newContract.value)
-      .then(op => op.contract())
-      .then(contract => this.navigateTo(contract))
-      .catch(error => this.displayError(error));
+      .then((op) => op.contract())
+      .then((contract) => this.navigateTo(contract))
+      .catch((error) => this.displayError(error));
   }
 }

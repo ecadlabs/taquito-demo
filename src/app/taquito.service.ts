@@ -43,11 +43,7 @@ export class TaquitoService {
   }
 
   public async selectBeaconWallet() {
-    const wallet = new BeaconWallet({
-      name: 'test',
-    });
-    await wallet.client.init();
-    await wallet.client.removeAllPeers();
+    const wallet = new BeaconWallet({ name: 'test' });
     const network = this.networkSelect.selectedNetwork$.getValue();
     await wallet.requestPermissions({
       network: Network.getNetwork(network),

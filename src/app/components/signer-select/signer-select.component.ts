@@ -1,13 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
-import { TaquitoService } from 'src/app/taquito.service';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Subject } from "rxjs";
+import { TaquitoService } from "src/app/taquito.service";
 
-import { Signer } from '../../models/signer.model';
+import { Signer } from "../../models/signer.model";
 
 @Component({
-  selector: 'tz-signer-select',
-  templateUrl: './signer-select.component.html',
-  styleUrls: ['./signer-select.component.scss'],
+  selector: "tz-signer-select",
+  templateUrl: "./signer-select.component.html",
+  styleUrls: ["./signer-select.component.scss"],
 })
 export class SignerSelectComponent implements OnInit {
   public Signer = Signer;
@@ -43,7 +43,7 @@ export class SignerSelectComponent implements OnInit {
           this.error.emit(
             error.body && error.body.length !== 0
               ? error
-              : { body: 'Unable to import selected faucet key.' }
+              : { body: "Unable to import selected faucet key." },
           );
         });
     };

@@ -1,6 +1,6 @@
 <nb-card>
   <nb-card-header>
-    Select wallet
+    Select the wallet you wish to use
   </nb-card-header>
   <nb-card-body>
     <tz-signer-select></tz-signer-select>
@@ -8,7 +8,7 @@
 </nb-card>
 <nb-card>
   <nb-card-header>
-    Transfer tokens
+    Request transfer of tokens
   </nb-card-header>
   <nb-card-body>
     <form [formGroup]="transferForm" (ngSubmit)="onTransfer()">
@@ -19,7 +19,7 @@
       <input nbInput id="destination" class="input" formControlName="to" />
       <br>
       <button nbButton [disabled]="!transferForm.valid">
-        Deploy
+        Send Request to Wallet
       </button>
     </form>
   </nb-card-body>

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Tezos } from '@taquito/taquito';
+import { TezosToolkit } from '@taquito/taquito';
 import BigNumber from 'bignumber.js';
 
 @Pipe({
@@ -11,6 +11,7 @@ export class TzPipe implements PipeTransform {
     if (bigNum.isNaN()) {
       return amount;
     }
+    const Tezos = new TezosToolkit('https://api.tez.ie/rpc/carthagenet');
 
     return `${new BigNumber(Tezos.format('mutez', 'tz', amount)).toFixed(2)} ꜩ`;
   }

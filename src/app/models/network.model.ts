@@ -7,6 +7,7 @@ export interface Network {
 export enum NetworkType {
   MAINNET = 'mainnet',
   CARTHAGENET = 'carthagenet',
+  DELPHINET = 'delphinet',
   CUSTOM = 'custom',
 }
 
@@ -21,7 +22,8 @@ export namespace Network {
     return getNetwork(network).rpcUrl;
   }
 
-  export function getNetwork(network: NetworkType): Network {
+  // TODO put the type back (Network) when Delphinet will be added to the enum NetworkType of beacon-sdk
+  export function getNetwork(network: NetworkType): any {
     return {
       [NetworkType.MAINNET]: {
         type: NetworkType.MAINNET,
@@ -32,6 +34,11 @@ export namespace Network {
         type: NetworkType.CARTHAGENET,
         name: 'Carthagenet',
         rpcUrl: 'https://api.tez.ie/rpc/carthagenet',
+      },
+      [NetworkType.DELPHINET]: {
+        type: NetworkType.DELPHINET,
+        name: 'Delphinet',
+        rpcUrl: 'https://api.tez.ie/rpc/delphinet',
       },
     }[network];
   }

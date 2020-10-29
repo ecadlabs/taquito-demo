@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   };
 
   public disableNewContractButton$ = this.networkSelect.selectedNetwork$.pipe(
-    map((network) => network !== NetworkType.CARTHAGENET)
+    map((network) => ( network !== NetworkType.CARTHAGENET && network !== NetworkType.DELPHINET ))
   );
 
   private network;

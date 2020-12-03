@@ -16,6 +16,7 @@ import { importKey } from "@taquito/signer";
 })
 export class TaquitoService {
   private taquito: TezosToolkit = new TezosToolkit('https://api.tez.ie/rpc/carthagenet');
+  private wallet = new BeaconWallet({ name: 'test' });
 
   constructor(private networkSelect: NetworkSelectService) {}
 
@@ -44,12 +45,11 @@ export class TaquitoService {
   }
 
   public async selectBeaconWallet() {
-    const wallet = new BeaconWallet({ name: 'test' });
     const network = this.networkSelect.selectedNetwork$.getValue();
-    await wallet.requestPermissions({
+    await this.wallet.requestPermissions({
       network: Network.getNetwork(network),
     });
-    this.taquito.setProvider({ wallet });
+    this.taquito.setProvider({ wallet: this.wallet });
   }
 
   public originate(contract: OriginateParams) {

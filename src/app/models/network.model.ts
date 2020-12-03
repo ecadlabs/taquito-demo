@@ -22,8 +22,7 @@ export namespace Network {
     return getNetwork(network).rpcUrl;
   }
 
-  // TODO put the type back (Network) when Delphinet will be added to the enum NetworkType of beacon-sdk
-  export function getNetwork(network: NetworkType): any {
+  export function getNetwork(network: NetworkType): Network {
     return {
       [NetworkType.MAINNET]: {
         type: NetworkType.MAINNET,

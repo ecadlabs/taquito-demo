@@ -11,6 +11,10 @@ import { NetworkType } from 'src/app/models/network.model';
 
 import { TaquitoService } from '../../taquito.service';
 
+import 'brace/index';
+import 'brace/theme/eclipse';
+import 'brace/mode/json';
+
 @Component({
   selector: 'tz-new-contract',
   templateUrl: './new-contract.component.html',
@@ -43,6 +47,7 @@ code {
 
   public aceOptions = {
     printMargin: false,
+    useWorker: false
   };
 
   public error$ = new Subject();

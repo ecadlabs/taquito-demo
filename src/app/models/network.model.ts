@@ -7,6 +7,7 @@ export interface Network {
 export enum NetworkType {
   MAINNET = 'mainnet',
   CARTHAGENET = 'carthagenet',
+  DELPHINET = 'delphinet',
   CUSTOM = 'custom',
 }
 
@@ -32,6 +33,11 @@ export namespace Network {
         type: NetworkType.CARTHAGENET,
         name: 'Carthagenet',
         rpcUrl: 'https://api.tez.ie/rpc/carthagenet',
+      },
+      [NetworkType.DELPHINET]: {
+        type: NetworkType.DELPHINET,
+        name: 'Delphinet',
+        rpcUrl: 'https://api.tez.ie/rpc/delphinet',
       },
     }[network];
   }

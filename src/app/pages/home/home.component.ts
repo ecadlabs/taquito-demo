@@ -20,10 +20,14 @@ export class HomeComponent implements OnInit {
       '/mainnet/KT1GgUJwMQoFayRYNwamRAYCvHBLzgorLoGo',
       '/mainnet/KT1Q1kfbvzteafLvnGz92DGvkdypXfTGfEA3',
     ],
+    [NetworkType.DELPHINET]: [
+      '/delphinet/KT1RWfwg7ct6J8AcGji9eEpXCEg5enMbiKKx',
+      '/delphinet/KT1Nf1CPvF1FFmAan5LiRvcyukyt3Nf4Le9B',
+    ],
   };
 
   public disableNewContractButton$ = this.networkSelect.selectedNetwork$.pipe(
-    map((network) => network !== NetworkType.CARTHAGENET)
+    map((network) => ( network !== NetworkType.CARTHAGENET && network !== NetworkType.DELPHINET ))
   );
 
   private network;

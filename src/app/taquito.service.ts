@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Tezos, TezosToolkit, LegacyWalletProvider } from '@taquito/taquito';
+import { TezosToolkit, LegacyWalletProvider } from '@taquito/taquito';
 import {
   OriginateParams,
   TransferParams,
@@ -9,12 +9,14 @@ import { NetworkSelectService } from './components/network-select/network-select
 import { Network, NetworkType } from './models/network.model';
 import { TezBridgeWallet } from '@taquito/tezbridge-wallet';
 import { BeaconWallet } from '@taquito/beacon-wallet';
+import { importKey } from "@taquito/signer";
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaquitoService {
-  private taquito: TezosToolkit = Tezos;
+  private taquito: TezosToolkit = new TezosToolkit('https://api.tez.ie/rpc/carthagenet');
+  private wallet = new BeaconWallet({ name: 'test' });
 
   constructor(private networkSelect: NetworkSelectService) {}
 
@@ -29,7 +31,7 @@ export class TaquitoService {
     const mnemonic = key.mnemonic.join(' ');
     const secret = key.secret;
 
-    await this.taquito.importKey(email, password, mnemonic, secret);
+    await importKey(this.taquito, email, password, mnemonic, secret);
     // Reset the default wallet
     this.taquito.setProvider({
       wallet: this.taquito.getFactory(LegacyWalletProvider)(),
@@ -43,12 +45,11 @@ export class TaquitoService {
   }
 
   public async selectBeaconWallet() {
-    const wallet = new BeaconWallet({ name: 'test' });
     const network = this.networkSelect.selectedNetwork$.getValue();
-    await wallet.requestPermissions({
+    await this.wallet.requestPermissions({
       network: Network.getNetwork(network),
     });
-    this.taquito.setProvider({ wallet });
+    this.taquito.setProvider({ wallet: this.wallet });
   }
 
   public originate(contract: OriginateParams) {

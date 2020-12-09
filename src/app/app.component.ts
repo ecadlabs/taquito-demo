@@ -11,7 +11,7 @@ import { TaquitoService } from './taquito.service';
 export class AppComponent implements OnInit {
   title = 'Taquito Demo';
 
-  public network = NetworkType.CARTHAGENET;
+  public network = NetworkType.DELPHINET;
 
   constructor(private taquito: TaquitoService) {}
 

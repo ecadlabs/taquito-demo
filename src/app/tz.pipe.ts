@@ -11,7 +11,7 @@ export class TzPipe implements PipeTransform {
     if (bigNum.isNaN()) {
       return amount;
     }
-    const Tezos = new TezosToolkit('https://api.tez.ie/rpc/carthagenet');
+    const Tezos = new TezosToolkit('https://api.tez.ie/rpc/delphinet');
 
     return `${new BigNumber(Tezos.format('mutez', 'tz', amount)).toFixed(2)} ꜩ`;
   }

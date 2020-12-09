@@ -15,7 +15,7 @@ import { importKey } from "@taquito/signer";
   providedIn: 'root',
 })
 export class TaquitoService {
-  private taquito: TezosToolkit = new TezosToolkit('https://api.tez.ie/rpc/carthagenet');
+  private taquito: TezosToolkit = new TezosToolkit('https://api.tez.ie/rpc/delphinet');
   private wallet = new BeaconWallet({ name: 'test' });
 
   constructor(private networkSelect: NetworkSelectService) {}

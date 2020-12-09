@@ -11,7 +11,7 @@ export class SearchFormComponent implements OnInit {
   public Network = Network;
 
   @Input()
-  public network = NetworkType.CARTHAGENET;
+  public network = NetworkType.DELPHINET;
 
   @Input()
   public contract = '';

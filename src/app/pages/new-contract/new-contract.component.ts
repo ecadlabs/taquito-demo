@@ -53,7 +53,7 @@ code {
   public error$ = new Subject();
   public deploying$ = new BehaviorSubject<boolean>(false);
 
-  private defaultSupportedNetwork = NetworkType.CARTHAGENET;
+  private defaultSupportedNetwork = NetworkType.DELPHINET;
   private unsupportedNetworks = [NetworkType.MAINNET];
   private selectedNetwork;
 
